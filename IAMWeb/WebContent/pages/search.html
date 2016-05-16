@@ -1,0 +1,279 @@
+<?xml version="1.0" encoding="ISO-8859-1" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <!-- The above 3 meta tags *must* come first in the head; any other head content must come *after* these tags -->
+    <meta name="description" content="">
+    <meta name="author" content="Rahul Thai Valappil">
+
+    <title>Search-Identity Management System</title>
+
+    <!-- Bootstrap core CSS -->
+    <link href="../resources/css/bootstrap.min.css" rel="stylesheet">
+
+    <!-- IE10 viewport hack for Surface/desktop Windows 8 bug -->
+    <link href="../resources/css/ie10-viewport-bug-workaround.css" rel="stylesheet">
+
+    <!-- Custom styles for this template -->
+    <link href="../resources/css/jumbotron.css" rel="stylesheet">
+
+    <!-- Just for debugging purposes. Don't actually copy these 2 lines! -->
+    <!--[if lt IE 9]><script src="../../assets/js/ie8-responsive-file-warning.js"></script><![endif]-->
+    <script src="../resources/js/ie-emulation-modes-warning.js"></script>
+
+    <!-- HTML5 shim and Respond.js for IE8 support of HTML5 elements and media queries -->
+    <!--[if lt IE 9]>
+      <script src="https://oss.maxcdn.com/html5shiv/3.7.2/html5shiv.min.js"></script>
+      <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
+    <![endif]-->
+  </head>
+<body>
+<nav class="navbar navbar-inverse navbar-fixed-top">
+      <div class="container">
+        <div class="navbar-header">
+          <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar" aria-expanded="false" aria-controls="navbar">
+            <span class="sr-only">Toggle navigation</span>
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+          </button>
+          <a class="navbar-brand" href="welcome-page.html">Home</a>
+        </div>
+       </div>
+    </nav>
+ 	<div class="jumbotron">
+      <div class="container">
+        <h1>Identity Search</h1>
+        <p>You can search an identity and then access to its information. This helps to modify or delete a particular Identity </p>
+      </div>
+    </div>
+    <div  xmlns="http://www.w3.org/1999/xhtml" class="h1">
+    <div id="displayMessage" style="display:none"></div>
+     </div>
+<div xmlns="http://www.w3.org/1999/xhtml" class="jumbotron">
+    <div  style="width:50%" class="form-horizontal" role="form">
+        <div class="form-group">
+            <label for="email" class="col-sm-2 control-label">Email*</label>
+
+            <div class="col-sm-10">
+                 <input type="email" class="form-control" id="email" placeholder="Email" />
+            </div>
+        </div>
+           <div class="form-group">
+            <div class="col-sm-offset-2 col-sm-10 text-right">
+                  <button type="button" class="btn btn-default" onclick="onSearch()">Search</button>
+            </div>
+        </div>
+    </div>
+    <div style="padding-left:50px;width:50%" class="fjumbotron">
+        <h3 class="text-info">Search Results</h3>
+
+        <div class="form-horizontal">
+            <div  class="table-responsive">
+                <table id="resultTable" class="table">
+                   
+                </table>
+            </div>
+            <div class="form-group">
+                <div class=" col-sm-offset-2 col-sm-10 text-right">
+                    <button type="submit" class="btn btn-primary" onclick="onUpdate()">Modify</button>
+                    <button type="submit" class="btn btn-primary" onclick="onDelete()">Delete</button>
+                    <button type="submit" class="btn btn-default" onclick="onCancel()">Cancel</button>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div  style="padding-left:50px;width:50%" id="UpdateForm" class="form-horizontal" role="form">
+	</div>
+</div>
+<script src="../resources/js/iamwebscripts.js"></script>
+<script type="text/javascript">
+function onCancel()
+{
+	ResetMessage(document.getElementById("displayMessage"));
+	var tableObj = document.getElementById("resultTable");
+	tableObj.innerHTML = "";
+	document.getElementById( 'email' ).value="";
+	onFormCancel();
+}
+//this function called when search button clicked
+function onSearch()
+{
+	ResetMessage(document.getElementById("displayMessage"));
+	var datapair = { email: document.getElementById('email').value };
+	postServlet("POST",'../Search',onHandleSearchResults,datapair);
+}
+//this function handles the search results manipulation
+function onHandleSearchResults()
+{
+	if( -1 != this.search(/error/i) )
+	{
+		document.getElementById("displayMessage").innerText = this;
+		document.getElementById("displayMessage").style.display = "block";
+		document.getElementById("displayMessage").style.color = "Red";
+		return;
+	}
+	var headers = [ "Selection","UID", "First Name", "Last Name", "Email","Birth Date"];
+	var tableObj = document.getElementById("resultTable");
+	tableObj.innerHTML = "";
+	var header = tableObj.createTHead();
+	var row = tableObj.insertRow(-1);
+	for (var i = 0; i < 6; i++)
+	{
+        var headerCell = document.createElement("TH");
+        headerCell.innerHTML = headers[i];
+        row.appendChild(headerCell);
+    }
+	var Identities = JSON.parse(this);
+	var result = Identities.SearchResults;
+	for (var i = 0; i < result.length; i++)
+	{
+		var jsonObject = eval('(' + result[i] + ')');;
+		row = tableObj.insertRow(-1);
+		var cell = row.insertCell(-1);
+		cell.innerHTML = '<input name="selection" type="radio" />';
+		cell = row.insertCell(-1);
+		cell.innerHTML = jsonObject.identId;
+		cell = row.insertCell(-1);
+		cell.innerHTML = jsonObject.firstName;
+		cell = row.insertCell(-1);
+		cell.innerHTML = jsonObject.lastName;
+		cell = row.insertCell(-1);
+		cell.innerHTML = jsonObject.email;
+		cell = row.insertCell(-1);
+		cell.innerHTML = jsonObject.birthDate;
+	}
+}
+//this function called when Modify button clicked
+function onUpdate()
+{
+	var tables = document.getElementById("resultTable");
+	var selectedRowIndex=1;
+	
+	while(row=tables.rows[selectedRowIndex++])
+	{
+	  if(row.cells[0].firstChild.checked)
+	  {
+	   break;
+	  }
+	}
+	var updateForm = document.getElementById("UpdateForm");
+	var divForm = CreateFormheader(updateForm,"Update Identity of " + tables.rows[selectedRowIndex-1].cells[4].innerHTML);
+	appendFormRow(divForm,"email","firstName","First Name",tables.rows[selectedRowIndex-1].cells[2].innerHTML);
+	appendFormRow(divForm,"email","lastName","Last Name",tables.rows[selectedRowIndex-1].cells[3].innerHTML);
+	appendFormRow(divForm,"date","birthDate","Birth Date",tables.rows[selectedRowIndex-1].cells[5].innerHTML);
+	divForm.appendChild( CreateFormFooter());
+	AppendButtontoDivGrp( divForm,"submit","Update",onFormUpdate );
+	AppendButtontoDivGrp( divForm,"submit","Cancel",onFormCancel);
+}
+//this function called when Update button clicked from Modify 
+function onFormUpdate()
+{
+	postTableOperation("../Update",onHandleUpdate);
+}
+//this function called when Cancel button clicked from Modify
+function onFormCancel()
+{
+	var tableObj = document.getElementById("UpdateForm");
+	tableObj.innerHTML = "";
+}
+
+//this function called when Delete button clicked
+function onDelete()
+{	
+	postTableOperation("../Delete",onHandleDelete);
+}
+
+//this function handles delete post operations
+function onHandleDelete()
+{
+	document.getElementById("displayMessage").innerText = this;
+	document.getElementById("displayMessage").style.display = "block";
+	document.getElementById("displayMessage").style.color = "Red";
+	if( -1 == this.search(/error/i) )
+	{
+		var tables = document.getElementById("resultTable");
+		var selectedRowIndex=1;
+		
+		while(row=tables.rows[selectedRowIndex++])
+		{
+			if( row.cells[0].childNodes[0].checked) 
+		  {
+		   break;
+		  }
+		}
+		tables.deleteRow(selectedRowIndex-1);
+	}
+}
+
+//this function handle update post operations
+function onHandleUpdate()
+{
+	document.getElementById("displayMessage").innerText = this;
+	document.getElementById("displayMessage").style.display = "block";
+	document.getElementById("displayMessage").style.color = "Red";
+	if( -1 == this.search(/error/i) )
+	{
+		var tables = document.getElementById("resultTable");
+		var selectedRowIndex=1;
+		
+		while(row=tables.rows[selectedRowIndex++])
+		{
+		  if( row.cells[0].childNodes[0].checked)
+		  {
+		   break;
+		  }
+		}
+		var updValue = document.getElementById("firstName");
+		tables.rows[selectedRowIndex-1].cells[2].innerHTML = updValue.value;
+		updValue = document.getElementById("lastName");
+		tables.rows[selectedRowIndex-1].cells[3].innerHTML = updValue.value;
+		updValue = document.getElementById("birthDate");
+		tables.rows[selectedRowIndex-1].cells[5].innerHTML = updValue.value;
+	}
+	onFormCancel();
+}
+
+//this function post the url to java servlet using ajax
+function postTableOperation( url, callback )
+{
+    ResetMessage(document.getElementById("displayMessage"));
+	
+	var tables = document.getElementById("resultTable");
+	var selectedRowIndex=1;
+	
+	while(row=tables.rows[selectedRowIndex++])
+	{
+	  if( row.cells[0].childNodes[0].checked)
+	  {
+	   break;
+	  }
+	}
+	if( url == "../Delete")
+	{
+		var datapair = {	
+							identId:tables.rows[selectedRowIndex-1].cells[1].innerHTML,
+							firstName: tables.rows[selectedRowIndex-1].cells[2].innerHTML,
+							lastName: tables.rows[selectedRowIndex-1].cells[3].innerHTML,
+							email: tables.rows[selectedRowIndex-1].cells[4].innerHTML,
+							birthDate: tables.rows[selectedRowIndex-1].cells[5].innerHTML
+						};
+	}
+	else
+	{
+		var datapair = {	
+				identId:tables.rows[selectedRowIndex-1].cells[1].innerHTML,
+				firstName: document.getElementById("firstName").value,
+				lastName: document.getElementById("lastName").value,
+				email: tables.rows[selectedRowIndex-1].cells[4].innerHTML,
+				birthDate: document.getElementById("birthDate").value
+			};
+	}
+	postServlet( "POST",url, callback, datapair);
+}
+</script>
+</body>
+</html>
