@@ -1,0 +1,5 @@
+fr.rktv.iamcore.datamodel
+fr.rktv.iamcore.logger
+fr.rktv.iamcore.services.dao
+fr.rktv.iamcore.services.dao.impl
+fr.rktv.iamweb.services.servlets
