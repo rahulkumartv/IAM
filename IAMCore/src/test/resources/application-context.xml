@@ -1,0 +1,55 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xmlns:context="http://www.springframework.org/schema/context"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans 
+	   					   http://www.springframework.org/schema/beans/spring-beans-4.2.xsd
+	   					    http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context-4.2.xsd">
+	   					      
+    <!-- @Autowired -->
+    <!-- DataSource ds -->
+    <context:component-scan base-package="fr.rktv.iamcore" />
+    <bean id="dataSourceBean" class="org.springframework.jdbc.datasource.DriverManagerDataSource">
+		<property name="driverClassName" value="org.apache.derby.jdbc.EmbeddedDriver"/>
+		<property name="url" value="jdbc:derby:memory:IAM;create=true"/>
+		<property name="username" value="tom"/>
+		<property name="password" value="tom"/>
+	</bean>
+	<bean id="beanBasedSessionFactory"	class="org.springframework.orm.hibernate4.LocalSessionFactoryBean">
+		<property name="dataSource" ref="dataSourceBean" />
+		<property name="hibernateProperties" ref="hibernateProperties" />
+		<property name="packagesToScan" value="fr.rktv.iamcore.datamodel" />
+	</bean>
+	<bean class="org.springframework.beans.factory.config.PropertiesFactoryBean" id="hibernateProperties">
+		<property name="properties">
+			<props>
+				<prop key="hibernate.dialect">org.hibernate.dialect.DerbyTenSevenDialect</prop>
+				<prop key="hibernate.show_sql">true</prop>
+				<prop key="hibernate.hbm2ddl.auto">update</prop>
+				<prop key="hibernate.connection.autocommit">false</prop>
+			</props>
+		</property>
+	</bean>
+	<bean id="stringDigester" class="org.jasypt.digest.PooledStringDigester">
+   		<property name="poolSize" value="2"/>
+   	 	<property name="algorithm" value="SHA-256"/>
+    	<property name="iterations" value="100"/>
+    	<property name="saltGenerator">
+     		 <bean class="org.jasypt.salt.RandomSaltGenerator"/>
+   		</property>
+    	<property name="saltSizeBytes" value="16"/>
+    </bean>
+	<bean class="fr.rktv.iamcore.services.dao.impl.IdentityHibernateDAO" id="hibernateDAO">
+	</bean>
+	<bean class="fr.rktv.iamcore.services.dao.impl.AuthHibernateDAO" id="AuthenticationDAO">
+	</bean>
+	<bean class="java.lang.String" id="searchFromEmail">
+	<constructor-arg><value>from Identity where email = :email</value></constructor-arg>
+	</bean>
+	<bean class="java.lang.String" id="searchUser">
+	<constructor-arg><value>from Credentail where username = :username</value></constructor-arg>
+	</bean>
+	<bean class="java.lang.String" id="Lincese_Key">
+	<constructor-arg><value>23a4a4bd-83a9-4b95-be9a-638bf5fd35f3</value></constructor-arg>
+	</bean>
+</beans>
