@@ -1,0 +1,952 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+    <title>IDENTITY ACCESS MANAGEMENT</title>
+    <link rel="stylesheet" type="text/css" href="htmlCSS.css" />
+    <meta name="generator" content="DocBook XSL Stylesheets V1.78.1" />
+  </head>
+  <body>
+    <div class="article">
+      <div class="titlepage">
+        <div>
+          <div>
+            <h1 class="title"><a id="idm1600608640"></a>IDENTITY ACCESS MANAGEMENT</h1>
+          </div>
+          <div>
+            <h3 class="subtitle">
+              <em>
+		<span class="inlinemediaobject"><img src="resources/EPITA.png" width="100%" /></span>
+		<span class="productname">Technical Specification</span>
+		<span class="productnumber">1.0</span>
+		</em>
+            </h3>
+          </div>
+          <div>
+            <div class="author">
+              <h3 class="author"><span class="honorific">Mr</span>. <span class="firstname">RAHUL KUMAR</span> <span class="surname">THAI VALAPPIL</span></h3>
+            </div>
+          </div>
+        </div>
+        <hr />
+      </div>
+      <div class="toc">
+        <p>
+          <strong>Table of Contents</strong>
+        </p>
+        <dl class="toc">
+          <dt>
+            <span class="sect1">
+              <a href="#idm1600582656">1. Subject description</a>
+            </span>
+          </dt>
+          <dt>
+            <span class="sect1">
+              <a href="#idm1600573952">2. Subject Analysis</a>
+            </span>
+          </dt>
+          <dd>
+            <dl>
+              <dt>
+                <span class="sect2">
+                  <a href="#idm1600573824">2.1. Major features</a>
+                </span>
+              </dt>
+              <dt>
+                <span class="sect2">
+                  <a href="#idm1600544512">2.2. Application Feasibility</a>
+                </span>
+              </dt>
+              <dt>
+                <span class="sect2">
+                  <a href="#idm1600546816">2.3. Data description</a>
+                </span>
+              </dt>
+              <dt>
+                <span class="sect2">
+                  <a href="#idm1600540672">2.4. Expected results</a>
+                </span>
+              </dt>
+              <dt>
+                <span class="sect2">
+                  <a href="#idm1600531840">2.5. Algorithms study</a>
+                </span>
+              </dt>
+              <dt>
+                <span class="sect2">
+                  <a href="#idm1600530304">2.6. Scope of the application (limits, evolutions)</a>
+                </span>
+              </dt>
+            </dl>
+          </dd>
+          <dt>
+            <span class="sect1">
+              <a href="#idm1600516608">3. Conception</a>
+            </span>
+          </dt>
+          <dd>
+            <dl>
+              <dt>
+                <span class="sect2">
+                  <a href="#idm1600509440">3.1. Chosen algorithm</a>
+                </span>
+              </dt>
+              <dt>
+                <span class="sect2">
+                  <a href="#idm1600512000">3.2. Data Structures</a>
+                </span>
+              </dt>
+              <dt>
+                <span class="sect2">
+                  <a href="#idm1600509568">3.3. Global application flow</a>
+                </span>
+              </dt>
+              <dt>
+                <span class="sect2">
+                  <a href="#idm1600511744">3.4.	Global schema and major features schema</a>
+                </span>
+              </dt>
+            </dl>
+          </dd>
+          <dt>
+            <span class="sect1">
+              <a href="#idm1600507520">4. GUI Operations Description</a>
+            </span>
+          </dt>
+          <dd>
+            <dl>
+              <dt>
+                <span class="sect2">
+                  <a href="#idm1600506752">4.1. Login page</a>
+                </span>
+              </dt>
+              <dt>
+                <span class="sect2">
+                  <a href="#idm1600504832">4.2. Home page</a>
+                </span>
+              </dt>
+              <dt>
+                <span class="sect2">
+                  <a href="#idm1600503168">4.3. Create Page</a>
+                </span>
+              </dt>
+              <dt>
+                <span class="sect2">
+                  <a href="#idm1600494848">3.4.	Search Page</a>
+                </span>
+              </dt>
+            </dl>
+          </dd>
+          <dt>
+            <span class="sect1">
+              <a href="#idm1600486912">5. Configuration instructions</a>
+            </span>
+          </dt>
+          <dt>
+            <span class="sect1">
+              <a href="#idm1600482560">5. Commented Screenshots</a>
+            </span>
+          </dt>
+          <dt>
+            <span class="sect1">
+              <a href="#idm1600455296">6. Bibliography</a>
+            </span>
+          </dt>
+        </dl>
+      </div>
+      <br xmlns:d="http://docbook.org/ns/docbook" />
+      <hr xmlns:d="http://docbook.org/ns/docbook" />
+      <div class="sect1">
+        <div class="titlepage">
+          <div>
+            <div>
+              <h2 class="title" style="clear: both"><a id="idm1600582656"></a>1. Subject description</h2>
+            </div>
+          </div>
+        </div>
+        <p>Identity Access Management(IAM) System is an administrative application that deals with manipulation and management of individual identities, their authentication within or across system. The application must perform basic CRUD (Create, Read, Update and Delete) operations on a persistent storage system such as database. The term “User” is used as “the person who will manage the information” and the term “Identity” is used to signify the “information of user in the system”.</p>
+      </div>
+      <br xmlns:d="http://docbook.org/ns/docbook" />
+      <hr xmlns:d="http://docbook.org/ns/docbook" />
+      <div class="sect1">
+        <div class="titlepage">
+          <div>
+            <div>
+              <h2 class="title" style="clear: both"><a id="idm1600573952"></a>2. Subject Analysis</h2>
+            </div>
+          </div>
+        </div>
+        <div class="sect2">
+          <div class="titlepage">
+            <div>
+              <div>
+                <h3 class="title"><a id="idm1600573824"></a>2.1. Major features</h3>
+              </div>
+            </div>
+          </div>
+          <p>
+    		</p>
+          <table border="0" summary="Simple list" class="simplelist">
+            <tr>
+              <td>The application must allow the users to maintain and manipulate their identity information through a web interface. Every identity entity being comprised of first name, last name, email address and data birth and these details will persist in server database. Additionally, it should include a layer of security for a login process that will restrict the access from unauthorized users.</td>
+            </tr>
+            <tr>
+              <td>Application allows user to perform below functions related to his/her information:</td>
+            </tr>
+          </table>
+          <p>
+    	</p>
+          <div class="itemizedlist">
+            <ul class="itemizedlist" style="list-style-type: disc; ">
+              <li class="listitem">
+                <p>Configure User account for authentication with purchased license</p>
+              </li>
+              <li class="listitem">
+                <p>Login with valid credential</p>
+              </li>
+              <li class="listitem">
+                <p>Create an Identity</p>
+              </li>
+              <li class="listitem">
+                <p>Search identities from the system</p>
+              </li>
+              <li class="listitem">
+                <p>Update an existing Identity</p>
+              </li>
+              <li class="listitem">
+                <p>Delete an existing Identity</p>
+              </li>
+            </ul>
+          </div>
+        </div>
+        <div class="sect2">
+          <div class="titlepage">
+            <div>
+              <div>
+                <h3 class="title"><a id="idm1600544512"></a>2.2. Application Feasibility</h3>
+              </div>
+            </div>
+          </div>
+          <p>The application has to be accessed through a web browser.  Depends on the server configure, the application would allow to deploy on a server with full capabilities of being accessible from within the network, or even online.</p>
+        </div>
+        <div class="sect2">
+          <div class="titlepage">
+            <div>
+              <div>
+                <h3 class="title"><a id="idm1600546816"></a>2.3. Data description</h3>
+              </div>
+            </div>
+          </div>
+          <p>The application will use Derby database with tables for both Identity management and user authentication. The Hibernate and Spring frameworks are used to communicate between application business layer and data layer. Following are the data representation corresponds to Identity and User table.</p>
+          <div class="sect3">
+            <div class="titlepage">
+              <div>
+                <div>
+                  <h4 class="title"><a id="idm1600545920"></a>2.3.1. Identity</h4>
+                </div>
+              </div>
+            </div>
+            <p>Identity represents following data:</p>
+            <div class="itemizedlist">
+              <ul class="itemizedlist" style="list-style-type: disc; ">
+                <li class="listitem">
+                  <p>Id – Automatically generated field within hibernate</p>
+                </li>
+                <li class="listitem">
+                  <p>firstName -String</p>
+                </li>
+                <li class="listitem">
+                  <p>lastName -String</p>
+                </li>
+                <li class="listitem">
+                  <p>email – String</p>
+                </li>
+                <li class="listitem">
+                  <p>birthdate - Date </p>
+                </li>
+              </ul>
+            </div>
+          </div>
+          <div class="sect3">
+            <div class="titlepage">
+              <div>
+                <div>
+                  <h4 class="title"><a id="idm1600536064"></a>2.3.2. User</h4>
+                </div>
+              </div>
+            </div>
+            <p>User represents following data:</p>
+            <div class="itemizedlist">
+              <ul class="itemizedlist" style="list-style-type: disc; ">
+                <li class="listitem">
+                  <p>Id - Automatically generated field within hibernate</p>
+                </li>
+                <li class="listitem">
+                  <p>Username – String</p>
+                </li>
+                <li class="listitem">
+                  <p>Password – using java simplified pooled digester to encrypt the data.</p>
+                </li>
+              </ul>
+            </div>
+            <p>Additionally, license needs to register a user is hard coded in Spring application context xml, so currently additional user creation is not possible. </p>
+          </div>
+        </div>
+        <div class="sect2">
+          <div class="titlepage">
+            <div>
+              <div>
+                <h3 class="title"><a id="idm1600540672"></a>2.4. Expected results</h3>
+              </div>
+            </div>
+          </div>
+          <p>End user should able to perform following functionalities and HTML pages will be loaded with some JavaScript and CSS functionality for the ease of use and aesthetics.</p>
+          <div class="itemizedlist">
+            <ul class="itemizedlist" style="list-style-type: disc; ">
+              <li class="listitem">
+                <p>Configure user authentication</p>
+              </li>
+              <li class="listitem">
+                <p>Perform user authentication</p>
+              </li>
+              <li class="listitem">
+                <p>Create an Identity</p>
+              </li>
+              <li class="listitem">
+                <p>Search Identities</p>
+              </li>
+              <li class="listitem">
+                <p>Update an Identity</p>
+              </li>
+              <li class="listitem">
+                <p>Delete an Identity </p>
+              </li>
+            </ul>
+          </div>
+          <p>The user will have two main HTML pages, one for user authentication and other for performing CRUD operations.</p>
+        </div>
+        <div class="sect2">
+          <div class="titlepage">
+            <div>
+              <div>
+                <h3 class="title"><a id="idm1600531840"></a>2.5. Algorithms study</h3>
+              </div>
+            </div>
+          </div>
+          <p>Application should adopt a simple MVC paradigm with help of Spring framework as business layer and Hibernate session factory as data layer. When user performs actions the view should send data request to the controller. This controller will contact data model in order to produce data requested and send back to the view where it will have visualized in HTML format. To improve security of the system user password data should be encrypted before storing in database. </p>
+        </div>
+        <div class="sect2">
+          <div class="titlepage">
+            <div>
+              <div>
+                <h3 class="title"><a id="idm1600530304"></a>2.6. Scope of the application (limits, evolutions)</h3>
+              </div>
+            </div>
+          </div>
+          <div class="sect3">
+            <div class="titlepage">
+              <div>
+                <div>
+                  <h4 class="title"><a id="idm1600530944"></a>2.6.1. Limits</h4>
+                </div>
+              </div>
+            </div>
+            <div class="itemizedlist">
+              <ul class="itemizedlist" style="list-style-type: disc; ">
+                <li class="listitem">
+                  <p>The application will do no more than the basic CRUD operations of Identity and user authentication</p>
+                </li>
+                <li class="listitem">
+                  <p>Deletion or update can perform only one identity at a time</p>
+                </li>
+                <li class="listitem">
+                  <p>Currently user management option is not exposed to the user layer</p>
+                </li>
+                <li class="listitem">
+                  <p>Identity fields and criteria for search are not configurable</p>
+                </li>
+                <li class="listitem">
+                  <p>License issuer is not implemented, so currently using a hard coded license which restricts registration of multiple user account in one system</p>
+                </li>
+              </ul>
+            </div>
+          </div>
+          <div class="sect3">
+            <div class="titlepage">
+              <div>
+                <div>
+                  <h4 class="title"><a id="idm1600521088"></a>2.6.1. Evolutions</h4>
+                </div>
+              </div>
+            </div>
+            <div class="itemizedlist">
+              <ul class="itemizedlist" style="list-style-type: disc; ">
+                <li class="listitem">
+                  <p>Separate configuration or setting page for managing user accounts</p>
+                </li>
+                <li class="listitem">
+                  <p>License issuer module which is responsible for issuing new license and deciding the user access level</p>
+                </li>
+                <li class="listitem">
+                  <p>An option to configure Identity fields and criteria for search in administrative level</p>
+                </li>
+                <li class="listitem">
+                  <p>Multiple Identities can be deleted or updated at a time</p>
+                </li>
+              </ul>
+            </div>
+          </div>
+        </div>
+      </div>
+      <br xmlns:d="http://docbook.org/ns/docbook" />
+      <hr xmlns:d="http://docbook.org/ns/docbook" />
+      <div class="sect1">
+        <div class="titlepage">
+          <div>
+            <div>
+              <h2 class="title" style="clear: both"><a id="idm1600516608"></a>3. Conception</h2>
+            </div>
+          </div>
+        </div>
+        <div class="sect2">
+          <div class="titlepage">
+            <div>
+              <div>
+                <h3 class="title"><a id="idm1600509440"></a>3.1. Chosen algorithm</h3>
+              </div>
+            </div>
+          </div>
+          <p>Chosen Java simplified encryption(jasypt) to encrypt user password before storing to database. The standard and simplified way allows to configure the algorithm through spring application context. The jasypt hashing lets to specify the algorithm (and provider) to be used for creating digests, the size of the salt to be applied, the number of times the hash function will be applied (iterations) and the salt generator to be used. Following are the current digest properties.</p>
+        </div>
+        <div class="sect2">
+          <div class="titlepage">
+            <div>
+              <div>
+                <h3 class="title"><a id="idm1600512000"></a>3.2. Data Structures</h3>
+              </div>
+            </div>
+          </div>
+          <p>Application mainly Spring Framework, so it provides a comprehensive programming and configuration model for application. Spring allows to execute operation such as database without having to deal with actual database API’s through dependency injection and inversion of control. Also application using Data Access Object patterns which allows flexibility in choosing business service level of identity data. Currently application using Hibernate framework for mapping identity object model to derby database.
+       		</p>
+          <table border="0" summary="Simple list" class="simplelist">
+            <tr>
+              <td>pool Size -		2</td>
+            </tr>
+            <tr>
+              <td>Algorithm -		SHA-256</td>
+            </tr>
+            <tr>
+              <td>Iterations -		100</td>
+            </tr>
+            <tr>
+              <td>salt Generator -	org. jasypt. salt. RandomSaltGenerator</td>
+            </tr>
+            <tr>
+              <td>salt Size Bytes -	16</td>
+            </tr>
+          </table>
+          <p>
+     		</p>
+        </div>
+        <div class="sect2">
+          <div class="titlepage">
+            <div>
+              <div>
+                <h3 class="title"><a id="idm1600509568"></a>3.3. Global application flow</h3>
+              </div>
+            </div>
+          </div>
+          <div class="mediaobject">
+            <img src="resources/App_FlowChart.png" />
+          </div>
+        </div>
+        <div class="sect2">
+          <div class="titlepage">
+            <div>
+              <div>
+                <h3 class="title"><a id="idm1600511744"></a>3.4.	Global schema and major features schema</h3>
+              </div>
+            </div>
+          </div>
+          <div class="mediaobject">
+            <img src="resources/GlobalSchema.png" />
+          </div>
+        </div>
+      </div>
+      <br xmlns:d="http://docbook.org/ns/docbook" />
+      <hr xmlns:d="http://docbook.org/ns/docbook" />
+      <div class="sect1">
+        <div class="titlepage">
+          <div>
+            <div>
+              <h2 class="title" style="clear: both"><a id="idm1600507520"></a>4. GUI Operations Description</h2>
+            </div>
+          </div>
+        </div>
+        <div class="sect2">
+          <div class="titlepage">
+            <div>
+              <div>
+                <h3 class="title"><a id="idm1600506752"></a>4.1. Login page</h3>
+              </div>
+            </div>
+          </div>
+          <p>Page consist of user login and registration options. Already registered user can enter their username and password for authentication otherwise need to register with valid license by clicking register button.</p>
+          <div class="figure">
+            <a id="idm1600505088"></a>
+            <p class="title">
+              <strong>Figure 1. IAM Login Page</strong>
+            </p>
+            <div class="figure-contents">
+              <div class="mediaobject">
+                <table border="0" summary="manufactured viewport for HTML img" style="cellpadding: 0; cellspacing: 0;" width="100%">
+                  <tr>
+                    <td>
+                      <img src="resources/Login_Page.png" width="100%" alt="IAM Login Page" />
+                    </td>
+                  </tr>
+                </table>
+              </div>
+            </div>
+          </div>
+          <br class="figure-break" />
+        </div>
+        <div class="sect2">
+          <div class="titlepage">
+            <div>
+              <div>
+                <h3 class="title"><a id="idm1600504832"></a>4.2. Home page</h3>
+              </div>
+            </div>
+          </div>
+          <p>The page where user can choose their CRUD operations. Home page will get called once the user successfully authenticates his credential.</p>
+          <div class="figure">
+            <a id="idm1600507136"></a>
+            <p class="title">
+              <strong>Figure 2. IAM Welcome Page</strong>
+            </p>
+            <div class="figure-contents">
+              <div class="mediaobject">
+                <table border="0" summary="manufactured viewport for HTML img" style="cellpadding: 0; cellspacing: 0;" width="100%">
+                  <tr>
+                    <td>
+                      <img src="resources/Welcome_Page.png" width="100%" alt="IAM Welcome Page" />
+                    </td>
+                  </tr>
+                </table>
+              </div>
+            </div>
+          </div>
+          <br class="figure-break" />
+        </div>
+        <div class="sect2">
+          <div class="titlepage">
+            <div>
+              <div>
+                <h3 class="title"><a id="idm1600503168"></a>4.3. Create Page</h3>
+              </div>
+            </div>
+          </div>
+          <p>The page provides facility to create new identities by entering details. Application will redirect to create page once user clicks on Create option from Home page. The page notify to user if any error happened during the create operation.</p>
+          <div class="figure">
+            <a id="idm1600496512"></a>
+            <p class="title">
+              <strong>Figure 3. IAM Create Page</strong>
+            </p>
+            <div class="figure-contents">
+              <div class="mediaobject">
+                <table border="0" summary="manufactured viewport for HTML img" style="cellpadding: 0; cellspacing: 0;" width="100%">
+                  <tr>
+                    <td>
+                      <img src="resources/Create_Page.png" width="100%" alt="IAM Create Page" />
+                    </td>
+                  </tr>
+                </table>
+              </div>
+            </div>
+          </div>
+          <br class="figure-break" />
+        </div>
+        <div class="sect2">
+          <div class="titlepage">
+            <div>
+              <div>
+                <h3 class="title"><a id="idm1600494848"></a>3.4.	Search Page</h3>
+              </div>
+            </div>
+          </div>
+          <p>The page facilitate user to search identity from their email address and provide an option to update or delete the identities. </p>
+          <div class="figure">
+            <a id="idm1600500096"></a>
+            <p class="title">
+              <strong>Figure 4. IAM Search Page</strong>
+            </p>
+            <div class="figure-contents">
+              <div class="mediaobject">
+                <table border="0" summary="manufactured viewport for HTML img" style="cellpadding: 0; cellspacing: 0;" width="100%">
+                  <tr>
+                    <td>
+                      <img src="resources/Search_Page.png" width="100%" alt="IAM Search Page" />
+                    </td>
+                  </tr>
+                </table>
+              </div>
+            </div>
+          </div>
+          <br class="figure-break" />
+          <div class="figure">
+            <a id="idm1600494720"></a>
+            <p class="title">
+              <strong>Figure 5. IAM Update Operation</strong>
+            </p>
+            <div class="figure-contents">
+              <div class="mediaobject">
+                <table border="0" summary="manufactured viewport for HTML img" style="cellpadding: 0; cellspacing: 0;" width="100%">
+                  <tr>
+                    <td>
+                      <img src="resources/Update_Page.png" width="100%" alt="IAM Update Operation" />
+                    </td>
+                  </tr>
+                </table>
+              </div>
+            </div>
+          </div>
+          <br class="figure-break" />
+          <div class="figure">
+            <a id="idm1600499584"></a>
+            <p class="title">
+              <strong>Figure 6. IAM Delete Operation</strong>
+            </p>
+            <div class="figure-contents">
+              <div class="mediaobject">
+                <table border="0" summary="manufactured viewport for HTML img" style="cellpadding: 0; cellspacing: 0;" width="100%">
+                  <tr>
+                    <td>
+                      <img src="resources/Delete_Page.png" width="100%" alt="IAM Delete Operation" />
+                    </td>
+                  </tr>
+                </table>
+              </div>
+            </div>
+          </div>
+          <br class="figure-break" />
+        </div>
+      </div>
+      <br xmlns:d="http://docbook.org/ns/docbook" />
+      <hr xmlns:d="http://docbook.org/ns/docbook" />
+      <div class="sect1">
+        <div class="titlepage">
+          <div>
+            <div>
+              <h2 class="title" style="clear: both"><a id="idm1600486912"></a>5. Configuration instructions</h2>
+            </div>
+          </div>
+        </div>
+        <div class="orderedlist">
+          <ol class="orderedlist" type="1">
+            <li class="listitem">
+              <p>Install latest Java run time environment</p>
+            </li>
+            <li class="listitem">
+              <p>Install Apache tomcat server and start the server</p>
+            </li>
+            <li class="listitem">
+              <p>User should install the Apache Derby database before doing any operation and start the derby Server by executing startNetworkServer.bat from Derby installation folder. Please visit following links for more details </p>
+              <p>
+                <a class="link" href="https://db.apache.org/derby/papers/DerbyTut/install_software.html" target="_top">https://db.apache.org/derby/papers/DerbyTut/install_software.html</a>
+              </p>
+            </li>
+            <li class="listitem">
+              <p>Deploy the IAMWEB application using the Tomcat Host Manager</p>
+            </li>
+            <li class="listitem">
+              <p>Configure log file location in log4j.properties from resource folder</p>
+              <p>
+                <span class="emphasis">
+                  <em>log4j.appender.file.File=./log/trace.log</em>
+                </span>
+              </p>
+            </li>
+            <li class="listitem">
+              <p>For First time user. register with valid license is mandatory to access the Identity management system</p>
+              <p>
+                <span class="emphasis">
+                  <em>License - 23a4a4bd-83a9-4b95-be9a-638bf5fd35f3</em>
+                </span>
+              </p>
+            </li>
+          </ol>
+        </div>
+        <div class="figure">
+          <a id="idm1600480896"></a>
+          <p class="title">
+            <strong>Figure 7. IAM Configuration</strong>
+          </p>
+          <div class="figure-contents">
+            <div class="mediaobject">
+              <table border="0" summary="manufactured viewport for HTML img" style="cellpadding: 0; cellspacing: 0;" width="100%">
+                <tr>
+                  <td>
+                    <img src="resources/Conf_Page.png" width="100%" alt="IAM Configuration" />
+                  </td>
+                </tr>
+              </table>
+            </div>
+          </div>
+        </div>
+        <br class="figure-break" />
+      </div>
+      <br xmlns:d="http://docbook.org/ns/docbook" />
+      <hr xmlns:d="http://docbook.org/ns/docbook" />
+      <div class="sect1">
+        <div class="titlepage">
+          <div>
+            <div>
+              <h2 class="title" style="clear: both"><a id="idm1600482560"></a>5. Commented Screenshots</h2>
+            </div>
+          </div>
+        </div>
+        <div class="example">
+          <a id="idm1600477440"></a>
+          <p class="title">
+            <strong>Example 1. Authentication DAO Interface</strong>
+          </p>
+          <div class="example-contents">
+            <div class="mediaobject">
+              <table border="0" summary="manufactured viewport for HTML img" style="cellpadding: 0; cellspacing: 0;" width="100%">
+                <tr>
+                  <td>
+                    <img src="resources/Screenshot_1.png" width="100%" />
+                  </td>
+                </tr>
+              </table>
+            </div>
+          </div>
+        </div>
+        <br class="example-break" />
+        <div class="example">
+          <a id="idm1600480128"></a>
+          <p class="title">
+            <strong>Example 2. Identity DAO Interface</strong>
+          </p>
+          <div class="example-contents">
+            <div class="mediaobject">
+              <table border="0" summary="manufactured viewport for HTML img" style="cellpadding: 0; cellspacing: 0;" width="100%">
+                <tr>
+                  <td>
+                    <img src="resources/Screenshot_2.png" width="100%" />
+                  </td>
+                </tr>
+              </table>
+            </div>
+          </div>
+        </div>
+        <br class="example-break" />
+        <div class="example">
+          <a id="idm1600483584"></a>
+          <p class="title">
+            <strong>Example 3. Log Manager</strong>
+          </p>
+          <div class="example-contents">
+            <div class="mediaobject">
+              <table border="0" summary="manufactured viewport for HTML img" style="cellpadding: 0; cellspacing: 0;" width="100%">
+                <tr>
+                  <td>
+                    <img src="resources/Screenshot_3.png" width="100%" />
+                  </td>
+                </tr>
+              </table>
+            </div>
+          </div>
+        </div>
+        <br class="example-break" />
+        <div class="example">
+          <a id="idm1600470400"></a>
+          <p class="title">
+            <strong>Example 4. I am Web Java Script </strong>
+          </p>
+          <div class="example-contents">
+            <div class="mediaobject">
+              <table border="0" summary="manufactured viewport for HTML img" style="cellpadding: 0; cellspacing: 0;" width="100%">
+                <tr>
+                  <td>
+                    <img src="resources/iamweb_javascript.JPG" width="100%" />
+                  </td>
+                </tr>
+              </table>
+            </div>
+          </div>
+        </div>
+        <br class="example-break" />
+        <div class="example">
+          <a id="idm1600472320"></a>
+          <p class="title">
+            <strong>Example 5. User Data Model</strong>
+          </p>
+          <div class="example-contents">
+            <div class="mediaobject">
+              <table border="0" summary="manufactured viewport for HTML img" style="cellpadding: 0; cellspacing: 0;" width="100%">
+                <tr>
+                  <td>
+                    <img src="resources/cred1.png" width="100%" />
+                  </td>
+                </tr>
+              </table>
+            </div>
+            <div class="mediaobject">
+              <table border="0" summary="manufactured viewport for HTML img" style="cellpadding: 0; cellspacing: 0;" width="100%">
+                <tr>
+                  <td>
+                    <img src="resources/cred2.png" width="100%" />
+                  </td>
+                </tr>
+              </table>
+            </div>
+          </div>
+        </div>
+        <br class="example-break" />
+        <div class="example">
+          <a id="idm1600470528"></a>
+          <p class="title">
+            <strong>Example 6. Identity Data Model</strong>
+          </p>
+          <div class="example-contents">
+            <div class="mediaobject">
+              <table border="0" summary="manufactured viewport for HTML img" style="cellpadding: 0; cellspacing: 0;" width="100%">
+                <tr>
+                  <td>
+                    <img src="resources/iden1.png" width="100%" />
+                  </td>
+                </tr>
+              </table>
+            </div>
+            <div class="mediaobject">
+              <table border="0" summary="manufactured viewport for HTML img" style="cellpadding: 0; cellspacing: 0;" width="100%">
+                <tr>
+                  <td>
+                    <img src="resources/id2.png" width="100%" />
+                  </td>
+                </tr>
+              </table>
+            </div>
+            <div class="mediaobject">
+              <table border="0" summary="manufactured viewport for HTML img" style="cellpadding: 0; cellspacing: 0;" width="100%">
+                <tr>
+                  <td>
+                    <img src="resources/id3.png" width="100%" />
+                  </td>
+                </tr>
+              </table>
+            </div>
+          </div>
+        </div>
+        <br class="example-break" />
+        <div class="example">
+          <a id="idm1600463616"></a>
+          <p class="title">
+            <strong>Example 7. POST Search Web Servlet</strong>
+          </p>
+          <div class="example-contents">
+            <div class="mediaobject">
+              <table border="0" summary="manufactured viewport for HTML img" style="cellpadding: 0; cellspacing: 0;" width="100%">
+                <tr>
+                  <td>
+                    <img src="resources/webservlet_search.JPG" width="100%" />
+                  </td>
+                </tr>
+              </table>
+            </div>
+          </div>
+        </div>
+        <br class="example-break" />
+        <div class="example">
+          <a id="idm1600463104"></a>
+          <p class="title">
+            <strong>Example 8. Iam Core Unit Test Snippet</strong>
+          </p>
+          <div class="example-contents">
+            <div class="mediaobject">
+              <table border="0" summary="manufactured viewport for HTML img" style="cellpadding: 0; cellspacing: 0;" width="100%">
+                <tr>
+                  <td>
+                    <img src="resources/IamCoreUnitTest.JPG" width="100%" />
+                  </td>
+                </tr>
+              </table>
+            </div>
+          </div>
+        </div>
+        <br class="example-break" />
+        <div class="example">
+          <a id="idm1600461056"></a>
+          <p class="title">
+            <strong>Example 9. Web Servlets Unit Test Code Snippet with Mocking </strong>
+          </p>
+          <div class="example-contents">
+            <div class="mediaobject">
+              <table border="0" summary="manufactured viewport for HTML img" style="cellpadding: 0; cellspacing: 0;" width="100%">
+                <tr>
+                  <td>
+                    <img src="resources/IamwebuintTest.JPG" width="100%" />
+                  </td>
+                </tr>
+              </table>
+            </div>
+          </div>
+        </div>
+        <br class="example-break" />
+      </div>
+      <br xmlns:d="http://docbook.org/ns/docbook" />
+      <hr xmlns:d="http://docbook.org/ns/docbook" />
+      <div class="sect1">
+        <div class="titlepage">
+          <div>
+            <div>
+              <h2 class="title" style="clear: both"><a id="idm1600455296"></a>6. Bibliography</h2>
+            </div>
+          </div>
+        </div>
+        <div class="orderedlist">
+          <ol class="orderedlist" type="1">
+            <li class="listitem">
+              <p>
+                <a class="link" href="http://thomas-broussard.fr/work/java/courses/index.xhtml" target="_top">http://thomas-broussard.fr/work/java/courses/index.xhtml</a>
+              </p>
+            </li>
+            <li class="listitem">
+              <p>
+                <a class="link" href="https://db.apache.org/derby/papers/" target="_top">https://db.apache.org/derby/papers/</a>
+              </p>
+            </li>
+            <li class="listitem">
+              <p>
+                <a class="link" href="https://docs.oracle.com/javase/tutorial/" target="_top">https://docs.oracle.com/javase/tutorial/</a>
+              </p>
+            </li>
+            <li class="listitem">
+              <p>
+                <a class="link" href="http://www.jasypt.org/encrypting-configuration.html" target="_top">http://www.jasypt.org/encrypting-configuration.html</a>
+              </p>
+            </li>
+            <li class="listitem">
+              <p>
+                <a class="link" href="https://dzone.com/refcardz/mockito" target="_top">https://dzone.com/refcardz/mockito</a>
+              </p>
+            </li>
+            <li class="listitem">
+              <p>
+                <a class="link" href="http://logging.apache.org/log4j/2.x/" target="_top">http://logging.apache.org/log4j/2.x/</a>
+              </p>
+            </li>
+            <li class="listitem">
+              <p>
+                <a class="link" href="http://spring.io/ and http://hibernate.org/" target="_top">http://spring.io/ and http://hibernate.org/</a>
+              </p>
+            </li>
+          </ol>
+        </div>
+      </div>
+    </div>
+  </body>
+</html>
